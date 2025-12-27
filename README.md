@@ -1,4 +1,4 @@
-# Benvenuti nel profilo di Italiano dinamico
+# Benvenuti nel profilo di Italiano Dinamico
 
 Ciao! 👋 Sono una creator digitale focalizzata sull'insegnamento della lingua italiana in modo moderno e coinvolgente. Questo profilo GitHub ospita le risorse interattive e i materiali didattici collegati al mio canale YouTube.
 
