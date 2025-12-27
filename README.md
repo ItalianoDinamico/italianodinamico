@@ -13,7 +13,7 @@ Ciao! 👋 Sono un creator digitale focalizzato sull'insegnamento della lingua i
 
 ### Come contattarmi
 - 💬 Se hai domande sui materiali o vuoi propormi una collaborazione, puoi scrivermi nei commenti di YouTube o tramite il mio bot Telegram.
-- 📫 In alternativa, puoi trovarmi qui: [italianodinamico@proton.,e]
+- 📫 In alternativa, puoi trovarmi qui: [italianodinamico@proton.me]
 
 ---
 
