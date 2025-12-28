@@ -59,6 +59,58 @@ h1, h2, h3 {
 .error-text {
     color: #ff0000; /* Terzo colore */
     font
+/* Stile per i box della Home Page */
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.box-link {
+    background-color: #00bf63; /* Il tuo verde */
+    color: #ffffff !important;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.2s, opacity 0.2s;
+    display: block;
+    border: none;
+}
+
+.box-link:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+}
+
+.box-link span {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.box-link h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.4rem;
+}
+
+.box-link p {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Footer e Sponsor */
+.sponsor-box {
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+    border-radius: 8px;
+}
+    
 /* --- Stili specifici per le Flashcards --- */
 
 .scene {
