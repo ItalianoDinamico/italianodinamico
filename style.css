@@ -1,111 +1,98 @@
-/* --- Basi del sito --- */
-body {
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-    background-color: #004aad; /* Blu sfondo */
-    color: #ffffff;
-    margin: 0;
+/* Stile per il contenitore principale */
+.card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
     padding: 0;
 }
 
-.main-content {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+.flashcard-title {
+    text-align: center;
+    color: #159957;
+    text-transform: lowercase;
 }
 
-/* --- Card e Box --- */
-.card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
+.flashcard-title::first-letter {
+    text-transform: uppercase;
+}
+
+/* Spazio banner */
+.ad-banner {
+    background: #f4f4f4;
+    padding: 10px;
     margin-bottom: 20px;
-    color: #004aad;
-}
-
-.menu-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.box-link {
-    background-color: #00bf63; /* Verde */
-    color: #ffffff !important;
-    padding: 20px;
-    border-radius: 12px;
     text-align: center;
-    text-decoration: none;
-    transition: transform 0.2s;
-    display: block;
-}
-
-.box-link:hover {
-    transform: scale(1.02);
-}
-
-/* --- Pulsanti --- */
-.btn {
-    display: block;
-    background-color: #00bf63;
-    color: #ffffff;
-    padding: 12px;
-    text-decoration: none;
     border-radius: 8px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
 }
 
-/* --- Stili Flashcards --- */
-.scene {
+/* Stile per l'effetto 3D */
+.flashcard-container {
+    background-color: transparent;
     width: 100%;
-    max-width: 400px;
-    height: 300px;
+    height: 250px;
     perspective: 1000px;
-    margin: 20px auto;
+    cursor: pointer;
 }
 
-.card-inner {
+.flashcard-inner {
+    position: relative;
     width: 100%;
     height: 100%;
-    position: relative;
+    text-align: center;
     transition: transform 0.6s;
     transform-style: preserve-3d;
-    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 15px;
 }
 
-.is-flipped {
+.girata {
     transform: rotateY(180deg);
 }
 
-.card-face {
+.flashcard-front, .flashcard-back {
     position: absolute;
     width: 100%;
     height: 100%;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-    text-align: center;
+    border: 2px solid #159957;
 }
 
-.card-face-front {
-    background-color: #ffffff;
-    color: #004aad;
-    border: 3px solid #00bf63;
+.flashcard-front {
+    background-color: white;
+    color: black;
 }
 
-.card-face-back {
-    background-color: #00bf63;
-    color: #ffffff;
+.flashcard-back {
+    background-color: #159957;
+    color: white;
     transform: rotateY(180deg);
 }
 
-.flashcard-nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+/* Controlli */
+.controls-container {
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 20px;
+}
+
+.btn-nav {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-prev {
+    background: #606c71;
+}
+
+.btn-next {
+    background: #159957;
 }
