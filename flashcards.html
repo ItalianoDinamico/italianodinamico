@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards Flat</title>
+    <!-- Script Monetag -->
+    <script src="https://alwingulla.com/88/pfe/current/tag.min.js?z=IL_TUO_ZONE_ID" data-cfasync="false" async></script>
+    
+    <style>
+        /* STILE FLAT DESIGN */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5; /* Grigio chiarissimo */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h3 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Spazio Banner */
+        .banner-box {
+            width: 100%;
+            max-width: 320px;
+            height: 50px;
+            background-color: #e0e0e0;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        /* Contenitore Flashcard */
+        .scene {
+            width: 300px;
+            height: 200px;
+            perspective: 600px;
+            cursor: pointer;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.4s;
+            transform-style: preserve-3d;
+        }
+
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Facce della carta */
+        .card__face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            border: 2px solid #e1e4e8;
+        }
+
+        /* FRONTE (Italiano) - Bianco */
+        .card__face--front {
+            background: #ffffff;
+            color: #2c3e50;
+        }
+
+        /* RETRO (Inglese) - Blu Flat */
+        .card__face--back {
+            background: #3498db;
+            color: white;
+            transform: rotateY(180deg);
+            border: none;
+        }
+
+        /* Testo */
+        .word-text {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .hint-text {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
+        /* Bottone Audio */
+        .audio-btn {
+            margin-top: 15px;
+            background: rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .audio-btn:hover {
+            background: rgba(0,0,0,0.2);
+        }
+
+        .card__face--back .audio-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        /* Controlli navigazione */
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn-nav {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn-nav:hover {
+            background-color: #1a252f;
+        }
+
+        #counter {
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Una pratica veloce per memorizzare</h3>
+
+    <!-- Banner Monetag -->
+    <div class="banner-box">
+        <!-- Incolla qui il codice del banner 320x50 o 300x250 -->
+        <small>Spazio Banner Monetag</small>
+    </div>
+
+    <!-- Flashcard -->
+    <div class="scene" onclick="flipCard()">
+        <div class="card">
+            
+            <!-- Lato FRONTE (Italiano) -->
+            <div class="card__face card__face--front">
+                <h2 class="word-text" id="front-text">Il gatto</h2>
+                <p class="hint-text">Clicca per girare</p>
+                <!-- Tasto Audio: stopPropagation evita che la carta giri quando premi audio -->
+                <button class="audio-btn" onclick="playAudio(event, 'it')">🔊</button>
+            </div>
+
+            <!-- Lato RETRO (Inglese) -->
+            <div class="card__face card__face--back">
+                <h2 class="word-text" id="back-text">The cat</h2>
+                <p class="hint-text">Traduzione</p>
+                <button class="audio-btn" onclick="playAudio(event, 'en')">🔊</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Navigazione -->
+    <div class="controls">
+        <button class="btn-nav" onclick="nextCard()">Prossima parola</button>
+    </div>
+    
+    <p id="counter">1 / 5</p>
+
+    <script>
+        // DATI DELLE FLASHCARD
+        const flashcards = [
+            { it: "Il gatto", en: "The cat" },
+            { it: "La biblioteca", en: "The library" },
+            { it: "Domani", en: "Tomorrow" },
+            { it: "Mangiare", en: "To eat" },
+            { it: "Felice", en: "Happy" }
+        ];
+
+        let currentIndex = 0;
+        const cardElement = document.querySelector('.card');
+        const frontText = document.getElementById('front-text');
+        const backText = document.getElementById('back-text');
+        const counter = document.getElementById('counter');
+
+        // Funzione per girare la carta
+        function flipCard() {
+            cardElement.classList.toggle('is-flipped');
+        }
+
+        // Funzione per l'audio (Sintesi Vocale)
+        function playAudio(event, lang) {
+            event.stopPropagation(); // Evita che la carta giri quando clicchi l'audio
+
+            const textToSpeak = lang === 'it' ? flashcards[currentIndex].it : flashcards[currentIndex].en;
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            
+            // Imposta la lingua (Italiano o Inglese)
+            utterance.lang = lang === 'it' ? 'it-IT' : 'en-US';
+            
+            // Parla
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Passa alla prossima carta
+        function nextCard() {
+            // Se la carta è girata, rimettila dritta
+            if (cardElement.classList.contains('is-flipped')) {
+                cardElement.classList.remove('is-flipped');
+                setTimeout(updateCardContent, 200); // Aspetta metà animazione
+            } else {
+                updateCardContent();
+            }
+        }
+
+        function updateCardContent() {
+            currentIndex++;
+            
+            // Se finito il mazzo, ricomincia (o metti qui l'annuncio Rewarded)
+            if (currentIndex >= flashcards.length) {
+                alert("Mazzo completato! Ricominciamo.");
+                currentIndex = 0;
+            }
+
+            frontText.innerText = flashcards[currentIndex].it;
+            backText.innerText = flashcards[currentIndex].en;
+            counter.innerText = (currentIndex + 1) + " / " + flashcards.length;
+        }
+    </script>
+</body>
+</html>
