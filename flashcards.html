@@ -1,87 +1,155 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards - Italiano dinamico</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!-- Sezione Flashcard -->
+<div class="card" style="background: transparent; border: none; box-shadow: none; padding: 0;">
+    
+    <h3 style="text-align: center; color: #159957;">Una pratica veloce per memorizzare</h3>
 
-    <div class="main-content">
-        <h3>Una pratica veloce per memorizzare</h3>
+    <!-- SPAZIO BANNER MONETAG (Visibile sempre) -->
+    <div style="background: #f4f4f4; padding: 10px; margin-bottom: 20px; text-align: center; border-radius: 8px;">
+        <small>Spazio pubblicitario (Banner)</small>
+        <!-- Inserisci qui lo script del Banner 300x250 o 320x50 -->
+    </div>
 
-        <div class="scene">
-            <div class="card-inner" id="flashcard" onclick="toggleFlip()">
-                
-                <div class="card-face card-face-front">
-                    <p class="word-display" id="txt-it">Il gatto</p>
-                    <p class="hint">Clicca per girare</p>
-                    <button class="btn" style="width: auto; margin-top: 15px;" onclick="riproduciAudio(event, 'it-IT', 'txt-it')">🔊 Pronuncia</button>
-                </div>
-
-                <div class="card-face card-face-back">
-                    <p class="word-display" id="txt-en">The cat</p>
-                    <p class="hint">Traduzione</p>
-                    <button class="btn" style="width: auto; margin-top: 15px; background-color: #004aad;" onclick="riproduciAudio(event, 'en-US', 'txt-en')">🔊 Pronounce</button>
-                </div>
-
+    <!-- Contenitore della carta -->
+    <div class="flashcard-container" onclick="giraCarta()">
+        <div class="flashcard-inner" id="carta">
+            <!-- Fronte -->
+            <div class="flashcard-front">
+                <h2 id="testo-fronte">Cane</h2>
+                <p style="font-size: 0.9rem; color: #666;">(Clicca per girare)</p>
             </div>
-        </div>
-
-        <div class="flashcard-nav">
-            <button class="btn btn-back" style="width: 45%;" onclick="cambiaParola(-1)">Indietro</button>
-            <span id="contatore" style="font-weight: bold; color: #ffffff;">1 / 5</span>
-            <button class="btn" style="width: 45%;" onclick="cambiaParola(1)">Prossima</button>
-        </div>
-
-        <div style="margin-top: 40px; text-align: center;">
-            <a href="index.html" style="color: #ffffff; text-decoration: none; font-weight: bold;">← Torna alla home</a>
+            <!-- Retro -->
+            <div class="flashcard-back">
+                <h2 id="testo-retro">Dog</h2>
+                <p id="esempio-retro" style="font-style: italic;">"The dog is barking."</p>
+            </div>
         </div>
     </div>
 
-    <script>
-        // Lo script rimane qui per gestire i dati e l'audio
-        const dati = [
-            { it: "Il gatto", en: "The cat" },
-            { it: "La biblioteca", en: "The library" },
-            { it: "Mangiare", en: "To eat" },
-            { it: "Felice", en: "Happy" },
-            { it: "La mela", en: "The apple" }
-        ];
+    <!-- Controlli -->
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button class="btn" onclick="cambiaCarta(-1)" style="background: #606c71;">Indietro</button>
+        <p id="contatore" style="margin: 10px 0;">1 / 5</p>
+        <button class="btn" onclick="cambiaCarta(1)">Prossima</button>
+    </div>
 
-        let indiceAttuale = 0;
-        const cardInner = document.getElementById('flashcard');
+</div>
 
-        function toggleFlip() {
-            cardInner.classList.toggle('is-flipped');
+<style>
+    /* Stile per l'effetto 3D */
+    .flashcard-container {
+        background-color: transparent;
+        width: 100%;
+        height: 250px;
+        perspective: 1000px; /* Dà profondità 3D */
+        cursor: pointer;
+    }
+
+    .flashcard-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 15px;
+    }
+
+    /* Classe che viene aggiunta con JS per ruotare */
+    .girata {
+        transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        border: 2px solid #159957; /* Colore Cayman */
+    }
+
+    .flashcard-front {
+        background-color: white;
+        color: black;
+    }
+
+    .flashcard-back {
+        background-color: #159957;
+        color: white;
+        transform: rotateY(180deg);
+    }
+</style>
+
+<script>
+    // I dati delle tue flashcard
+    const mazzo = [
+        { fronte: "Il libro", retro: "The book", esempio: "The book is on the table." },
+        { fronte: "Mangiare", retro: "To eat", esempio: "I like to eat pizza." },
+        { fronte: "La casa", retro: "The house", esempio: "My house is big." },
+        { fronte: "Correre", retro: "To run", esempio: "He runs very fast." },
+        { fronte: "Il gatto", retro: "The cat", esempio: "The cat is sleeping." }
+    ];
+
+    let indiceCorrente = 0;
+    const carta = document.getElementById('carta');
+    const fronteTxt = document.getElementById('testo-fronte');
+    const retroTxt = document.getElementById('testo-retro');
+    const esempioTxt = document.getElementById('esempio-retro');
+    const contatore = document.getElementById('contatore');
+
+    function giraCarta() {
+        carta.classList.toggle('girata');
+    }
+
+    function cambiaCarta(direzione) {
+        // Se la carta è girata (mostra il retro), la rimettiamo dritta prima di cambiare
+        if (carta.classList.contains('girata')) {
+            carta.classList.remove('girata');
+            // Aspettiamo un attimo (300ms) che si giri prima di cambiare testo
+            setTimeout(() => aggiornaIndice(direzione), 300);
+        } else {
+            aggiornaIndice(direzione);
         }
+    }
 
-        function cambiaParola(direzione) {
-            cardInner.classList.remove('is-flipped');
-            setTimeout(() => {
-                indiceAttuale += direzione;
-                if (indiceAttuale < 0) indiceAttuale = 0;
-                if (indiceAttuale >= dati.length) {
-                    alert("Ottimo! Hai completato questo mazzo.");
-                    indiceAttuale = 0;
+    function aggiornaIndice(direzione) {
+        const nuovoIndice = indiceCorrente + direzione;
+
+        // Controllo fine mazzo
+        if (nuovoIndice >= mazzo.length) {
+            // QUI PARTE MONETAG (Fine del mazzo)
+            if (confirm("Hai finito il mazzo! Vuoi scaricare il PDF riassuntivo guardando uno sponsor?")) {
+                 if (typeof show_rewarded_ad === 'function') {
+                    show_rewarded_ad().then(() => {
+                        window.location.href = 'pdf/lezione-flashcard.pdf';
+                    });
+                } else {
+                    alert("Simulazione: Annuncio visto, scarico PDF...");
                 }
-                document.getElementById('txt-it').innerText = dati[indiceAttuale].it;
-                document.getElementById('txt-en').innerText = dati[indiceAttuale].en;
-                document.getElementById('contatore').innerText = (indiceAttuale + 1) + " / " + dati.length;
-            }, 150);
+            }
+            return;
         }
 
-        function riproduciAudio(event, lingua, idTesto) {
-            event.stopPropagation();
-            const testo = document.getElementById(idTesto).innerText;
-            const synth = window.speechSynthesis;
-            const utterance = new SpeechSynthesisUtterance(testo);
-            utterance.lang = lingua;
-            utterance.rate = 0.85;
-            synth.cancel();
-            synth.speak(utterance);
-        }
-    </script>
-</body>
-</html>
+        if (nuovoIndice < 0) return; // Non andare sotto zero
+
+        indiceCorrente = nuovoIndice;
+        aggiornaContenuto();
+    }
+
+    function aggiornaContenuto() {
+        const cardData = mazzo[indiceCorrente];
+        fronteTxt.innerText = cardData.fronte;
+        retroTxt.innerText = cardData.retro;
+        esempioTxt.innerText = cardData.esempio;
+        contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
+    }
+
+    // Inizializza
+    aggiornaContenuto();
+</script>
