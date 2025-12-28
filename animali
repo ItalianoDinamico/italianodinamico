@@ -1,0 +1,182 @@
+<div class="card flashcard-section">
+    
+    <h3 class="flashcard-title">Una pratica veloce per memorizzare</h3>
+
+    <div class="ad-banner">
+        <small>Spazio pubblicitario (Banner)</small>
+    </div>
+
+    <div class="flashcard-container" onclick="giraCarta()">
+        <div class="flashcard-inner" id="carta">
+            <div class="flashcard-front">
+                <h2 id="testo-fronte">Cane</h2>
+                <p>(Clicca per girare)</p>
+            </div>
+            <div class="flashcard-back">
+                <h2 id="testo-retro">Dog</h2>
+                <p id="esempio-retro">"The dog is barking."</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flashcard-controls">
+        <button class="btn btn-back" onclick="cambiaCarta(-1)">Indietro</button>
+        <p id="contatore">1 / 5</p>
+        <button class="btn" onclick="cambiaCarta(1)">Prossima</button>
+    </div>
+
+</div>
+
+<script>
+// Mazzo di 100 flashcard sugli animali
+const mazzo = [
+    { fronte: "Il cane", retro: "The dog", esempio: "The dog is barking loudly." },
+    { fronte: "Il gatto", retro: "The cat", esempio: "The cat is sleeping on the sofa." },
+    { fronte: "Il topo", retro: "The mouse", esempio: "The mouse eats cheese." },
+    { fronte: "L'elefante", retro: "The elephant", esempio: "The elephant has a long trunk." },
+    { fronte: "Il leone", retro: "The lion", esempio: "The lion is the king of the jungle." },
+    { fronte: "La tigre", retro: "The tiger", esempio: "The tiger has orange and black stripes." },
+    { fronte: "L'orso", retro: "The bear", esempio: "The bear loves honey." },
+    { fronte: "Il cavallo", retro: "The horse", esempio: "The horse runs very fast." },
+    { fronte: "La mucca", retro: "The cow", esempio: "The cow gives us milk." },
+    { fronte: "Il maiale", retro: "The pig", esempio: "The pig lives on the farm." },
+    { fronte: "La pecora", retro: "The sheep", esempio: "The sheep has soft wool." },
+    { fronte: "La capra", retro: "The goat", esempio: "The goat climbs the mountain." },
+    { fronte: "Il coniglio", retro: "The rabbit", esempio: "The rabbit has long ears." },
+    { fronte: "L'anatra", retro: "The duck", esempio: "The duck swims in the pond." },
+    { fronte: "Il pollo", retro: "The chicken", esempio: "The chicken lays eggs." },
+    { fronte: "Il gallo", retro: "The rooster", esempio: "The rooster crows in the morning." },
+    { fronte: "Il tacchino", retro: "The turkey", esempio: "We eat turkey on Thanksgiving." },
+    { fronte: "L'asino", retro: "The donkey", esempio: "The donkey is very stubborn." },
+    { fronte: "La giraffa", retro: "The giraffe", esempio: "The giraffe has a very long neck." },
+    { fronte: "La scimmia", retro: "The monkey", esempio: "The monkey likes bananas." },
+    { fronte: "Il gorilla", retro: "The gorilla", esempio: "The gorilla is strong and big." },
+    { fronte: "Lo scimpanzé", retro: "The chimpanzee", esempio: "The chimpanzee is very intelligent." },
+    { fronte: "La zebra", retro: "The zebra", esempio: "The zebra is black and white." },
+    { fronte: "Il lupo", retro: "The wolf", esempio: "The wolf howls at the moon." },
+    { fronte: "La volpe", retro: "The fox", esempio: "The fox is cunning." },
+    { fronte: "Il cervo", retro: "The deer", esempio: "The deer lives in the forest." },
+    { fronte: "L'alce", retro: "The moose", esempio: "The moose has huge antlers." },
+    { fronte: "L'ippopotamo", retro: "The hippo", esempio: "The hippo stays in the water." },
+    { fronte: "Il rinoceronte", retro: "The rhino", esempio: "The rhino has a horn on its nose." },
+    { fronte: "Il canguro", retro: "The kangaroo", esempio: "The kangaroo jumps high." },
+    { fronte: "Il koala", retro: "The koala", esempio: "The koala eats eucalyptus leaves." },
+    { fronte: "Il panda", retro: "The panda", esempio: "The panda eats bamboo." },
+    { fronte: "L'orso polare", retro: "The polar bear", esempio: "The polar bear lives in the Arctic." },
+    { fronte: "Il cammello", retro: "The camel", esempio: "The camel has humps on its back." },
+    { fronte: "Il lama", retro: "The llama", esempio: "The llama has soft wool." },
+    { fronte: "L'aquila", retro: "The eagle", esempio: "The eagle flies high in the sky." },
+    { fronte: "Il gufo", retro: "The owl", esempio: "The owl hunts at night." },
+    { fronte: "Il pinguino", retro: "The penguin", esempio: "The penguin cannot fly but swims well." },
+    { fronte: "Lo struzzo", retro: "The ostrich", esempio: "The ostrich is a very large bird." },
+    { fronte: "Il fenicottero", retro: "The flamingo", esempio: "The flamingo is pink." },
+    { fronte: "Il pappagallo", retro: "The parrot", esempio: "The parrot can talk." },
+    { fronte: "Il cigno", retro: "The swan", esempio: "The swan is elegant and white." },
+    { fronte: "Il piccione", retro: "The pigeon", esempio: "The pigeon is common in cities." },
+    { fronte: "Il passero", retro: "The sparrow", esempio: "The sparrow is a small bird." },
+    { fronte: "Il gabbiano", retro: "The seagull", esempio: "The seagull lives near the sea." },
+    { fronte: "Il pipistrello", retro: "The bat", esempio: "The bat sleeps upside down." },
+    { fronte: "La balena", retro: "The whale", esempio: "The whale is the largest animal." },
+    { fronte: "Il delfino", retro: "The dolphin", esempio: "The dolphin is very playful." },
+    { fronte: "Lo squalo", retro: "The shark", esempio: "The shark has sharp teeth." },
+    { fronte: "Il polpo", retro: "The octopus", esempio: "The octopus has eight arms." },
+    { fronte: "La medusa", retro: "The jellyfish", esempio: "The jellyfish can sting you." },
+    { fronte: "Il granchio", retro: "The crab", esempio: "The crab walks sideways." },
+    { fronte: "L'aragosta", retro: "The lobster", esempio: "The lobster turns red when cooked." },
+    { fronte: "La stella marina", retro: "The starfish", esempio: "The starfish lives on the ocean floor." },
+    { fronte: "Il cavalluccio marino", retro: "The seahorse", esempio: "The seahorse is a tiny sea creature." },
+    { fronte: "La foca", retro: "The seal", esempio: "The seal claps its flippers." },
+    { fronte: "Il tricheco", retro: "The walrus", esempio: "The walrus has long tusks." },
+    { fronte: "La tartaruga", retro: "The turtle", esempio: "The turtle has a hard shell." },
+    { fronte: "Il serpente", retro: "The snake", esempio: "The snake slithers on the ground." },
+    { fronte: "La lucertola", retro: "The lizard", esempio: "The lizard loves the sun." },
+    { fronte: "Il coccodrillo", retro: "The crocodile", esempio: "The crocodile is dangerous." },
+    { fronte: "L'alligatore", retro: "The alligator", esempio: "The alligator lives in swamps." },
+    { fronte: "La rana", retro: "The frog", esempio: "The frog jumps and croaks." },
+    { fronte: "Il rospo", retro: "The toad", esempio: "The toad has bumpy skin." },
+    { fronte: "Il camaleonte", retro: "The chameleon", esempio: "The chameleon changes color." },
+    { fronte: "L'iguana", retro: "The iguana", esempio: "The iguana is a large lizard." },
+    { fronte: "La farfalla", retro: "The butterfly", esempio: "The butterfly has colorful wings." },
+    { fronte: "L'ape", retro: "The bee", esempio: "The bee makes honey." },
+    { fronte: "La formica", retro: "The ant", esempio: "The ant is very strong for its size." },
+    { fronte: "Il ragno", retro: "The spider", esempio: "The spider spins a web." },
+    { fronte: "Lo scorpione", retro: "The scorpion", esempio: "The scorpion has a poisonous tail." },
+    { fronte: "La zanzara", retro: "The mosquito", esempio: "The mosquito bite is itchy." },
+    { fronte: "La mosca", retro: "The fly", esempio: "The fly buzzes around food." },
+    { fronte: "La coccinella", retro: "The ladybug", esempio: "The ladybug is red with black spots." },
+    { fronte: "La libellula", retro: "The dragonfly", esempio: "The dragonfly flies near water." },
+    { fronte: "La cavalletta", retro: "The grasshopper", esempio: "The grasshopper jumps in the grass." },
+    { fronte: "Il grillo", retro: "The cricket", esempio: "The cricket chirps at night." },
+    { fronte: "La vespa", retro: "The wasp", esempio: "The wasp can sting." },
+    { fronte: "Lo scoiattolo", retro: "The squirrel", esempio: "The squirrel gathers nuts." },
+    { fronte: "Il procione", retro: "The raccoon", esempio: "The raccoon has a mask on its face." },
+    { fronte: "Il castoro", retro: "The beaver", esempio: "The beaver builds dams." },
+    { fronte: "La lontra", retro: "The otter", esempio: "The otter swims on its back." },
+    { fronte: "Il tasso", retro: "The badger", esempio: "The badger lives underground." },
+    { fronte: "La puzzola", retro: "The skunk", esempio: "The skunk smells bad." },
+    { fronte: "Il bradipo", retro: "The sloth", esempio: "The sloth moves very slowly." },
+    { fronte: "L'armadillo", retro: "The armadillo", esempio: "The armadillo rolls into a ball." },
+    { fronte: "L'istrice", retro: "The porcupine", esempio: "The porcupine has sharp quills." },
+    { fronte: "La talpa", retro: "The mole", esempio: "The mole digs tunnels." },
+    { fronte: "Il riccio", retro: "The hedgehog", esempio: "The hedgehog is covered in spikes." },
+    { fronte: "Il pavone", retro: "The peacock", esempio: "The peacock has beautiful feathers." },
+    { fronte: "Il pellicano", retro: "The pelican", esempio: "The pelican catches fish in its beak." },
+    { fronte: "Il tucano", retro: "The toucan", esempio: "The toucan has a colorful beak." },
+    { fronte: "Il colibrì", retro: "The hummingbird", esempio: "The hummingbird flaps its wings fast." },
+    { fronte: "L'avvoltoio", retro: "The vulture", esempio: "The vulture eats dead animals." },
+    { fronte: "La iena", retro: "The hyena", esempio: "The hyena laughs." },
+    { fronte: "Il leopardo", retro: "The leopard", esempio: "The leopard is a fast runner." },
+    { fronte: "Il ghepardo", retro: "The cheetah", esempio: "The cheetah is the fastest land animal." },
+    { fronte: "La pantera", retro: "The panther", esempio: "The panther is a black cat." },
+    { fronte: "Il bisonte", retro: "The bison", esempio: "The bison is huge and strong." }
+];
+
+let indiceCorrente = 0;
+const carta = document.getElementById('carta');
+const fronteTxt = document.getElementById('testo-fronte');
+const retroTxt = document.getElementById('testo-retro');
+const esempioTxt = document.getElementById('esempio-retro');
+const contatore = document.getElementById('contatore');
+
+function giraCarta() {
+    carta.classList.toggle('girata');
+}
+
+function cambiaCarta(direzione) {
+    if (carta.classList.contains('girata')) {
+        carta.classList.remove('girata');
+        setTimeout(() => aggiornaIndice(direzione), 300);
+    } else {
+        aggiornaIndice(direzione);
+    }
+}
+
+function aggiornaIndice(direzione) {
+    const nuovoIndice = indiceCorrente + direzione;
+
+    // Controllo fine mazzo
+    if (nuovoIndice >= mazzo.length) {
+        alert("Ottimo lavoro! Hai imparato tutti i 100 animali.");
+        // Reindirizzamento alla pagina degli argomenti
+        // Assicurati che il file 'argomenti.html' esista o cambialo con il tuo link
+        window.location.href = 'argomenti.html'; 
+        return;
+    }
+
+    if (nuovoIndice < 0) return;
+
+    indiceCorrente = nuovoIndice;
+    aggiornaContenuto();
+}
+
+function aggiornaContenuto() {
+    const cardData = mazzo[indiceCorrente];
+    fronteTxt.innerText = cardData.fronte;
+    retroTxt.innerText = cardData.retro;
+    esempioTxt.innerText = cardData.esempio;
+    contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
+}
+
+// Inizializza la prima card al caricamento
+aggiornaContenuto();
+</script>
