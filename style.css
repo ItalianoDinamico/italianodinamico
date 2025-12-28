@@ -1,11 +1,8 @@
-/* Tavolozza colori personalizzata */
-/* Blu sfondo: #004aad | Verde pulsanti: #00bf63 | Bianco: #ffffff | Rosso: #ff0000 */
-
+/* --- Basi del sito --- */
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #004aad; /* Sfondo principale blu */
-    color: #ffffff; /* Testo principale bianco per contrasto */
-    line-height: 1.6;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: #004aad; /* Blu sfondo */
+    color: #ffffff;
     margin: 0;
     padding: 0;
 }
@@ -16,103 +13,51 @@ body {
     padding: 20px;
 }
 
-/* Titoli in bianco per risaltare sul blu */
-h1, h2, h3 {
-    color: #ffffff;
-    text-align: center;
-}
-
-/* Pulsanti in verde brillante */
-.btn {
-    display: inline-block;
-    background-color: #00bf63; /* Verde per i pulsanti */
-    color: #ffffff;
-    padding: 12px 25px;
-    text-decoration: none;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: opacity 0.3s ease;
-    text-align: center;
-    margin: 10px 0;
-    width: 100%;
-}
-
-.btn:hover {
-    opacity: 0.9;
-}
-
-/* Card con sfondo bianco e testo scuro */
+/* --- Card e Box --- */
 .card {
-    background: #ffffff; /* Secondo colore */
-    color: #004aad; /* Testo blu dentro le card bianche */
-    border: 1px solid #e1e4e8;
+    background: #ffffff;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    color: #004aad;
 }
 
-/* Elementi di avviso o errori in rosso */
-.error-text {
-    color: #ff0000; /* Terzo colore */
-    font
-/* Stile per i box della Home Page */
 .menu-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-bottom: 30px;
 }
 
 .box-link {
-    background-color: #00bf63; /* Il tuo verde */
+    background-color: #00bf63; /* Verde */
     color: #ffffff !important;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
     text-decoration: none;
-    transition: transform 0.2s, opacity 0.2s;
+    transition: transform 0.2s;
     display: block;
-    border: none;
 }
 
 .box-link:hover {
     transform: scale(1.02);
-    opacity: 0.9;
 }
 
-.box-link span {
-    font-size: 2.5rem;
+/* --- Pulsanti --- */
+.btn {
     display: block;
-    margin-bottom: 10px;
-}
-
-.box-link h3 {
-    margin: 0;
+    background-color: #00bf63;
     color: #ffffff;
-    font-size: 1.4rem;
-}
-
-.box-link p {
-    margin: 5px 0 0 0;
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-/* Footer e Sponsor */
-.sponsor-box {
-    background: rgba(255,255,255,0.1);
-    padding: 10px;
-    margin-bottom: 30px;
-    text-align: center;
+    padding: 12px;
+    text-decoration: none;
     border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
 }
-    
-/* --- Stili specifici per le Flashcards --- */
 
+/* --- Stili Flashcards --- */
 .scene {
     width: 100%;
     max-width: 400px;
@@ -130,7 +75,6 @@ h1, h2, h3 {
     cursor: pointer;
 }
 
-/* Classe attivata via JavaScript per girare la carta */
 .is-flipped {
     transform: rotateY(180deg);
 }
@@ -139,129 +83,29 @@ h1, h2, h3 {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-    padding: 20px;
-    box-sizing: border-box;
     text-align: center;
 }
 
-/* Fronte della carta (Bianco) */
 .card-face-front {
     background-color: #ffffff;
     color: #004aad;
-    border: 3px solid #00bf63; /* Bordo verde come richiesto */
+    border: 3px solid #00bf63;
 }
 
-/* Retro della carta (Verde) */
 .card-face-back {
     background-color: #00bf63;
     color: #ffffff;
     transform: rotateY(180deg);
 }
 
-.word-display {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin: 0;
-}
-
-.hint {
-    font-size: 0.9rem;
-    margin-top: 10px;
-    opacity: 0.8;
-}
-
-/* Navigazione delle Flashcards */
 .flashcard-nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.btn-back {
-    background-color: #ff0000 !important; /* Terzo colore: Rosso */
-}
-/* --- Stili specifici per le Flashcards --- */
-
-.scene {
-    width: 100%;
-    max-width: 400px;
-    height: 300px;
-    perspective: 1000px;
-    margin: 20px auto;
-}
-
-.card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    cursor: pointer;
-}
-
-/* Classe attivata via JavaScript per girare la carta */
-.is-flipped {
-    transform: rotateY(180deg);
-}
-
-.card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    padding: 20px;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-/* Fronte della carta (Bianco) */
-.card-face-front {
-    background-color: #ffffff;
-    color: #004aad;
-    border: 3px solid #00bf63; /* Bordo verde come richiesto */
-}
-
-/* Retro della carta (Verde) */
-.card-face-back {
-    background-color: #00bf63;
-    color: #ffffff;
-    transform: rotateY(180deg);
-}
-
-.word-display {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin: 0;
-}
-
-.hint {
-    font-size: 0.9rem;
-    margin-top: 10px;
-    opacity: 0.8;
-}
-
-/* Navigazione delle Flashcards */
-.flashcard-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.btn-back {
-    background-color: #ff0000 !important; /* Terzo colore: Rosso */
+    gap: 10px;
 }
