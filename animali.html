@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards Animali</title>
+    <title>Flashcards Flat</title>
+    <!-- Script Monetag -->
+    <script src="https://alwingulla.com/88/pfe/current/tag.min.js?z=IL_TUO_ZONE_ID" data-cfasync="false" async></script>
+    
     <style>
         /* STILE FLAT DESIGN */
         body {
@@ -151,6 +154,47 @@
             color: #7f8c8d;
         }
     </style>
+</head>
+<body>
+
+    <h3>Una pratica veloce per memorizzare</h3>
+
+    <!-- Banner Monetag -->
+    <div class="banner-box">
+        <!-- Incolla qui il codice del banner 320x50 o 300x250 -->
+        <small>Spazio Banner Monetag</small>
+    </div>
+
+    <!-- Flashcard -->
+    <div class="scene" onclick="flipCard()">
+        <div class="card">
+            
+            <!-- Lato FRONTE (Italiano) -->
+            <div class="card__face card__face--front">
+                <h2 class="word-text" id="front-text">Il gatto</h2>
+                <p class="hint-text">Clicca per girare</p>
+                <!-- Tasto Audio: stopPropagation evita che la carta giri quando premi audio -->
+                <button class="audio-btn" onclick="playAudio(event, 'it')">🔊</button>
+            </div>
+
+            <!-- Lato RETRO (Inglese) -->
+            <div class="card__face card__face--back">
+                <h2 class="word-text" id="back-text">The cat</h2>
+                <p class="hint-text">Traduzione</p>
+                <button class="audio-btn" onclick="playAudio(event, 'en')">🔊</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Navigazione -->
+    <div class="controls">
+        <button class="btn-nav" onclick="nextCard()">Prossima parola</button>
+    </div>
+    
+    <p id="counter">1 / 5</p>
+
+    <script>
 </head>
 <body>
 <div class="card flashcard-section">
