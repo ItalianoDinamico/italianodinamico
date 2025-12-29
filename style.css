@@ -9,6 +9,22 @@ body {
     align-items: center;
 }
 
+.main-title {
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.main-title small {
+    font-size: 1rem;
+    color: #7f8c8d;
+    font-weight: normal; 
+    display: block;
+}
 /* TOPICS GRID (per flashcards.html) */
 .topics-grid {
     display: grid;
@@ -45,7 +61,7 @@ body {
     font-style: italic;
 }
 
-/* FLASHCARDS (per animali.html, cibo.html, ecc.) */
+/* FLASHCARDS */
 .scene {
     width: 300px;
     height: 220px;
