@@ -159,12 +159,13 @@ if (btnPrev) btnPrev.innerText = "Back";
 if (btnNext) btnNext.innerText = "Next word";
 
 function giraCarta() {
-    carta.classList.toggle('girata');
+    // usa la classe attesa dal CSS compatibile
+    carta.classList.toggle('is-flipped');
 }
 
 function cambiaCarta(direzione) {
-    if (carta.classList.contains('girata')) {
-        carta.classList.remove('girata');
+    if (carta.classList.contains('is-flipped')) {
+        carta.classList.remove('is-flipped');
         setTimeout(() => aggiornaIndice(direzione), 300);
     } else {
         aggiornaIndice(direzione);
