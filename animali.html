@@ -340,7 +340,7 @@ function aggiornaIndice(direzione) {
 function aggiornaContenuto() {
     const cardData = mazzo[indiceCorrente];
     fronteTxt.innerText = cardData.fronte;
-    // Aggiunto "Translation" prima del testo inglese come richiesto implicitamente dalla logica di traduzione
+    // Aggiunto "Translation" prima del testo inglese come richiesto
     retroTxt.innerHTML = `<small style="display:block; font-size:0.8rem; opacity:0.8;">Translation</small>${cardData.retro}`;
     esempioTxt.innerText = cardData.esempio;
     contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
