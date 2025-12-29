@@ -116,7 +116,7 @@ body {
 
 .example-text {
     font-size: 0.9rem;
-    margin-top: 8px; /* Ridotto da 10 a 8 */
+    margin-top: 8px;
     margin-bottom: 5px;
     font-style: italic;
     line-height: 1.2;
