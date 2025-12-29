@@ -297,30 +297,51 @@ const mazzo = [
 ];
 
 let indiceCorrente = 0;
-const carta = document.getElementById('carta');
-const fronteTxt = document.getElementById('testo-fronte');
-const retroTxt = document.getElementById('testo-retro');
-const esempioTxt = document.getElementById('esempio-retro');
-const contatore = document.getElementById('contatore');
 
-// Riferimento al sottotitolo della card per "Click to flip"
-const clickToFlipText = document.querySelector('.flashcard-front p');
+// Map DOM elements to the IDs present in this HTML
+const carta = document.querySelector('.card');
+const fronteTxt = document.getElementById('front-text');
+const retroTxt = document.getElementById('back-text');
+// The file uses id="counter" in HTML, so map to that
+const contatore = document.getElementById('counter');
+// example text element not present in markup; try to find it if added later
+const esempioTxt = document.getElementById('esempio-retro');
+
+// Set hint text on front
+const clickToFlipText = document.querySelector('.card__face--front .hint-text');
 if (clickToFlipText) clickToFlipText.innerText = "Click to flip";
 
-// Riferimento ai bottoni per tradurli
-const btnPrev = document.querySelector('.btn-prev');
-const btnNext = document.querySelector('.btn-next');
-if (btnPrev) btnPrev.innerText = "Back";
+// Translate/label the navigation button if present
+const btnNext = document.querySelector('.btn-nav');
 if (btnNext) btnNext.innerText = "Next word";
 
-function giraCarta() {
-    // usa la classe attesa dal CSS compatibile
+// Function names in the HTML: flipCard() and nextCard()
+// Provide wrappers/aliases and implementations that work with the current DOM
+
+function flipCard() {
+    if (!carta) return;
     carta.classList.toggle('is-flipped');
+}
+// keep old italian name as alias
+function giraCarta() { flipCard(); }
+
+function nextCard() {
+    cambiaCarta(1);
+}
+function prevCard() {
+    cambiaCarta(-1);
 }
 
 function cambiaCarta(direzione) {
+    if (!carta) {
+        // if card element is missing, just update index directly
+        aggiornaIndice(direzione);
+        return;
+    }
+
     if (carta.classList.contains('is-flipped')) {
         carta.classList.remove('is-flipped');
+        // wait until flip animation ends before changing content (matching previous behaviour)
         setTimeout(() => aggiornaIndice(direzione), 300);
     } else {
         aggiornaIndice(direzione);
@@ -346,11 +367,10 @@ function aggiornaIndice(direzione) {
 
 function aggiornaContenuto() {
     const cardData = mazzo[indiceCorrente];
-    fronteTxt.innerText = cardData.fronte;
-    // Aggiunto "Translation" prima del testo inglese come richiesto
-    retroTxt.innerHTML = `<small style="display:block; font-size:0.8rem; opacity:0.8;">Translation</small>${cardData.retro}`;
-    esempioTxt.innerText = cardData.esempio;
-    contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
+    if (fronteTxt) fronteTxt.innerText = cardData.fronte;
+    if (retroTxt) retroTxt.innerHTML = `<small style="display:block; font-size:0.8rem; opacity:0.8;">Translation</small>${cardData.retro}`;
+    if (esempioTxt) esempioTxt.innerText = cardData.esempio;
+    if (contatore) contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
 }
 
 // Inizializza
