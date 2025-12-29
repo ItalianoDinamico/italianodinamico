@@ -9,6 +9,11 @@ body {
     align-items: center;
 }
 
+.main-title-container {
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
 .main-title {
     font-size: 1.6rem;
     color: #2c3e50;
