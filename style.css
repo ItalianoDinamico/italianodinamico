@@ -150,10 +150,9 @@ h3 {
     font-weight: 600;
 }
 
-/* PULSANTE AUDIO (Risolve la cornice e la dimensione) */
+/* PULSANTE AUDIO */
 .audio-btn {
     margin-top: 15px;
-    background: #f0f2f5;
     border: none;
     border-radius: 50%;
     width: 45px;
@@ -163,17 +162,30 @@ h3 {
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background-color 0.2s;
     outline: none;
 }
 
+/* Colore per il FRONTE (sfondo chiaro) */
+.card__face--front .audio-btn {
+    background-color: #f0f2f5;
+    color: #2c3e50;
+}
+
+/* Colore per il RETRO (sfondo blu) */
 .card__face--back .audio-btn {
-    background: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
     color: white;
 }
 
+/* Effetto al passaggio del mouse per entrambi */
 .audio-btn:hover {
     transform: scale(1.1);
+    background-color: rgba(0, 0, 0, 0.1); /* Scurisce leggermente al passaggio */
+}
+
+.card__face--back .audio-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* Schiarisce leggermente sul blu */
 }
 
 #counter {
