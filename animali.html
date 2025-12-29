@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards Animali</title>
+    <title>Flashcards Animals</title>
     <style>
         /* STILE FLAT DESIGN */
         body {
@@ -169,7 +169,7 @@
             <!-- Lato FRONTE (Italiano) -->
             <div class="card__face card__face--front">
                 <h2 class="word-text" id="front-text">Il gatto</h2>
-                <p class="hint-text">Clicca per girare</p>
+                <p class="hint-text">Click to flip</p>
                 <!-- Tasto Audio: stopPropagation evita che la carta giri quando premi audio -->
                 <button class="audio-btn" onclick="playAudio(event, 'it')">🔊</button>
             </div>
@@ -177,7 +177,7 @@
             <!-- Lato RETRO (Inglese) -->
             <div class="card__face card__face--back">
                 <h2 class="word-text" id="back-text">The cat</h2>
-                <p class="hint-text">Traduzione</p>
+                <p class="hint-text">Translation</p>
                 <button class="audio-btn" onclick="playAudio(event, 'en')">🔊</button>
             </div>
 
@@ -186,42 +186,10 @@
 
     <!-- Navigazione -->
     <div class="controls">
-        <button class="btn-nav" onclick="nextCard()">Prossima parola</button>
+        <button class="btn-nav" onclick="nextCard()">Next word</button>
     </div>
     
     <p id="counter">1 / 5</p>
-
-    <script>
-</head>
-<body>
-<div class="card flashcard-section">
-    
-    <h3 class="flashcard-title">Una pratica veloce per memorizzare</h3>
-
-    <div class="ad-banner">
-        <small>Spazio pubblicitario (Banner)</small>
-    </div>
-
-    <div class="flashcard-container" onclick="giraCarta()">
-        <div class="flashcard-inner" id="carta">
-            <div class="flashcard-front">
-                <h2 id="testo-fronte">Cane</h2>
-                <p>(Click to flip)</p>
-            </div>
-            <div class="flashcard-back">
-                <h2 id="testo-retro">Dog</h2>
-                <p id="esempio-retro">"Il cane abbaia forte."</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="flashcard-controls">
-        <button class="btn btn-back" onclick="cambiaCarta(-1)">Back</button>
-        <p id="contatore">1 / 5</p>
-        <button class="btn" onclick="cambiaCarta(1)">Next word</button>
-    </div>
-
-</div>
 
 <script>
 // Mazzo di 100 flashcard sugli animali
