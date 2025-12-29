@@ -70,6 +70,8 @@
             align-items: center;
             border-radius: 12px;
             border: 2px solid #e1e4e8;
+            padding: 12px;
+            box-sizing: border-box;
         }
 
         /* FRONTE (Italiano) - Bianco */
@@ -84,6 +86,7 @@
             color: white;
             transform: rotateY(180deg);
             border: none;
+            text-align: center;
         }
 
         /* Testo */
@@ -149,6 +152,14 @@
         #counter {
             font-weight: bold;
             color: #7f8c8d;
+            margin-top: 12px;
+        }
+
+        /* esempio style sul retro */
+        .example-text {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            opacity: 0.95;
         }
     </style>
 </head>
@@ -176,8 +187,12 @@
 
             <!-- Lato RETRO (Inglese) -->
             <div class="card__face card__face--back">
+                <!-- testo inglese -->
                 <h2 class="word-text" id="back-text">The cat</h2>
+                <!-- etichetta statica "Translation" (lasciamo questa) -->
                 <p class="hint-text">Translation</p>
+                <!-- qui mostreremo Esempio: <frase> -->
+                <p class="example-text" id="esempio-retro"><strong>Esempio:</strong> Il gatto dorme sul divano.</p>
                 <button class="audio-btn" onclick="playAudio(event, 'en')">🔊</button>
             </div>
 
@@ -304,7 +319,7 @@ const fronteTxt = document.getElementById('front-text');
 const retroTxt = document.getElementById('back-text');
 // The file uses id="counter" in HTML, so map to that
 const contatore = document.getElementById('counter');
-// example text element not present in markup; try to find it if added later
+// example text element we added in HTML
 const esempioTxt = document.getElementById('esempio-retro');
 
 // Set hint text on front
@@ -368,8 +383,10 @@ function aggiornaIndice(direzione) {
 function aggiornaContenuto() {
     const cardData = mazzo[indiceCorrente];
     if (fronteTxt) fronteTxt.innerText = cardData.fronte;
-    if (retroTxt) retroTxt.innerHTML = `<small style="display:block; font-size:0.8rem; opacity:0.8;">Translation</small>${cardData.retro}`;
-    if (esempioTxt) esempioTxt.innerText = cardData.esempio;
+    // NON reinseriamo più la piccola etichetta "Translation" qui (c'è già nel markup)
+    if (retroTxt) retroTxt.innerText = cardData.retro;
+    // Mostriamo l'esempio con prefisso "Esempio:"
+    if (esempioTxt) esempioTxt.innerHTML = `<strong>Esempio:</strong> ${cardData.esempio}`;
     if (contatore) contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
 }
 
