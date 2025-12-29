@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards Animals</title>
+    <title>Flashcards animals</title>
     <style>
         /* STILE FLAT DESIGN */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5; /* Grigio chiarissimo */
+            background-color: #f0f2f5; 
             margin: 0;
             padding: 20px;
             display: flex;
@@ -22,7 +22,7 @@
             margin-bottom: 20px;
         }
 
-        /* Spazio Banner */
+        /* Spazio banner */
         .banner-box {
             width: 100%;
             max-width: 320px;
@@ -37,7 +37,7 @@
             font-size: 0.8rem;
         }
 
-        /* Contenitore Flashcard */
+        /* Contenitore flashcard */
         .scene {
             width: 300px;
             height: 200px;
@@ -62,7 +62,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
+            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
@@ -70,17 +70,15 @@
             align-items: center;
             border-radius: 12px;
             border: 2px solid #e1e4e8;
-            padding: 12px;
+            padding: 15px;
             box-sizing: border-box;
         }
 
-        /* FRONTE (Italiano) - Bianco */
         .card__face--front {
             background: #ffffff;
             color: #2c3e50;
         }
 
-        /* RETRO (Inglese) - Blu Flat */
         .card__face--back {
             background: #3498db;
             color: white;
@@ -91,35 +89,38 @@
 
         /* Testo */
         .word-text {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            margin: 0;
+            margin: 5px 0;
         }
         
         .hint-text {
-            font-size: 0.9rem;
-            margin-top: 5px;
-            opacity: 0.7;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            margin: 0;
         }
 
-        /* Bottone Audio */
+        .example-text {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        /* Bottoni */
         .audio-btn {
             margin-top: 15px;
             background: rgba(0,0,0,0.1);
             border: none;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             cursor: pointer;
-            font-size: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .audio-btn:hover {
-            background: rgba(0,0,0,0.2);
         }
 
         .card__face--back .audio-btn {
@@ -127,39 +128,24 @@
             color: white;
         }
 
-        /* Controlli navigazione */
         .controls {
             margin-top: 30px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
         }
 
         .btn-nav {
             background-color: #2c3e50;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 6px;
             font-size: 1rem;
             cursor: pointer;
         }
 
-        .btn-nav:hover {
-            background-color: #1a252f;
-        }
-
         #counter {
             font-weight: bold;
             color: #7f8c8d;
-            margin-top: 12px;
-        }
-
-        /* esempio style sul retro */
-        .example-text {
-            font-size: 0.9rem;
-            margin-top: 8px;
-            opacity: 0.95;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -167,31 +153,22 @@
 
     <h3>Una pratica veloce per memorizzare</h3>
 
-    <!-- Banner Monetag -->
     <div class="banner-box">
-        <!-- Incolla qui il codice del banner 320x50 o 300x250 -->
         <small>Spazio Banner Monetag</small>
     </div>
 
-    <!-- Flashcard -->
     <div class="scene" onclick="flipCard()">
         <div class="card">
             
-            <!-- Lato FRONTE (Italiano) -->
             <div class="card__face card__face--front">
+                <p class="hint-text">Italiano</p>
                 <h2 class="word-text" id="front-text">Il gatto</h2>
-                <p class="hint-text">Click to flip</p>
-                <!-- Tasto Audio: stopPropagation evita che la carta giri quando premi audio -->
                 <button class="audio-btn" onclick="playAudio(event, 'it')">🔊</button>
             </div>
 
-            <!-- Lato RETRO (Inglese) -->
             <div class="card__face card__face--back">
-                <!-- testo inglese -->
-                <!-- etichetta statica "Translation" -->
-                <p class="hint-text">Translation</p><br>
+                <p class="hint-text">Translation</p>
                 <h2 class="word-text" id="back-text">The cat</h2>
-                <!-- qui mostreremo Esempio: <frase> -->
                 <p class="example-text" id="esempio-retro"><strong>Esempio:</strong> Il gatto dorme sul divano.</p>
                 <button class="audio-btn" onclick="playAudio(event, 'en')">🔊</button>
             </div>
@@ -199,7 +176,6 @@
         </div>
     </div>
 
-    <!-- Navigazione -->
     <div class="controls">
         <button class="btn-nav" onclick="nextCard()">Next word</button>
     </div>
@@ -207,7 +183,6 @@
     <p id="counter">1 / 5</p>
 
 <script>
-// Mazzo di 100 flashcard sugli animali
 const mazzo = [
     { fronte: "Il cane", retro: "The dog", esempio: "Il cane abbaia forte." },
     { fronte: "Il gatto", retro: "The cat", esempio: "Il gatto dorme sul divano." },
@@ -312,83 +287,52 @@ const mazzo = [
 ];
 
 let indiceCorrente = 0;
-
-// Map DOM elements to the IDs present in this HTML
 const carta = document.querySelector('.card');
 const fronteTxt = document.getElementById('front-text');
 const retroTxt = document.getElementById('back-text');
-// The file uses id="counter" in HTML, so map to that
 const contatore = document.getElementById('counter');
-// example text element we added in HTML
 const esempioTxt = document.getElementById('esempio-retro');
 
-// Set hint text on front
-const clickToFlipText = document.querySelector('.card__face--front .hint-text');
-if (clickToFlipText) clickToFlipText.innerText = "Click to flip";
-
-// Translate/label the navigation button if present
-const btnNext = document.querySelector('.btn-nav');
-if (btnNext) btnNext.innerText = "Next word";
-
-// Function names in the HTML: flipCard() and nextCard()
-// Provide wrappers/aliases and implementations that work with the current DOM
-
 function flipCard() {
-    if (!carta) return;
     carta.classList.toggle('is-flipped');
 }
-// keep old italian name as alias
-function giraCarta() { flipCard(); }
 
 function nextCard() {
-    cambiaCarta(1);
-}
-function prevCard() {
-    cambiaCarta(-1);
-}
-
-function cambiaCarta(direzione) {
-    if (!carta) {
-        // if card element is missing, just update index directly
-        aggiornaIndice(direzione);
-        return;
-    }
-
     if (carta.classList.contains('is-flipped')) {
         carta.classList.remove('is-flipped');
-        // wait until flip animation ends before changing content (matching previous behaviour)
-        setTimeout(() => aggiornaIndice(direzione), 300);
+        setTimeout(() => cambiaDati(1), 300);
     } else {
-        aggiornaIndice(direzione);
+        cambiaDati(1);
     }
 }
 
-function aggiornaIndice(direzione) {
+function cambiaDati(direzione) {
     const nuovoIndice = indiceCorrente + direzione;
-
-    // Controllo fine mazzo
     if (nuovoIndice >= mazzo.length) {
-        alert("Deck completed! Let's start again.");
-        // Reindirizzamento alla pagina flashcards.html
-        window.location.href = 'flashcards.html'; 
-        return;
+        alert("Deck completed!");
+        indiceCorrente = 0;
+    } else {
+        indiceCorrente = nuovoIndice;
     }
-
-    if (nuovoIndice < 0) return;
-
-    indiceCorrente = nuovoIndice;
     aggiornaContenuto();
 }
 
 function aggiornaContenuto() {
     const cardData = mazzo[indiceCorrente];
-    if (fronteTxt) fronteTxt.innerText = cardData.fronte;
-    if (retroTxt) retroTxt.innerText = cardData.retro;
-    if (esempioTxt) esempioTxt.innerHTML = `<strong>Esempio:</strong> ${cardData.esempio}`;
-    if (contatore) contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
+    fronteTxt.innerText = cardData.fronte;
+    retroTxt.innerText = cardData.retro;
+    esempioTxt.innerHTML = `<strong>Esempio:</strong> ${cardData.esempio}`;
+    contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
 }
 
-// Inizializza
+function playAudio(event, lang) {
+    event.stopPropagation();
+    const text = lang === 'it' ? mazzo[indiceCorrente].fronte : mazzo[indiceCorrente].retro;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang === 'it' ? 'it-IT' : 'en-US';
+    window.speechSynthesis.speak(utterance);
+}
+
 aggiornaContenuto();
 </script>
 </body>
