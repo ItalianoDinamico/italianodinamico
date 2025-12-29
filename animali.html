@@ -188,9 +188,9 @@
             <!-- Lato RETRO (Inglese) -->
             <div class="card__face card__face--back">
                 <!-- testo inglese -->
+                <!-- etichetta statica "Translation" -->
+                <p class="hint-text">Translation</p><br>
                 <h2 class="word-text" id="back-text">The cat</h2>
-                <!-- etichetta statica "Translation" (lasciamo questa) -->
-                <p class="hint-text">Translation</p>
                 <!-- qui mostreremo Esempio: <frase> -->
                 <p class="example-text" id="esempio-retro"><strong>Esempio:</strong> Il gatto dorme sul divano.</p>
                 <button class="audio-btn" onclick="playAudio(event, 'en')">🔊</button>
@@ -383,9 +383,7 @@ function aggiornaIndice(direzione) {
 function aggiornaContenuto() {
     const cardData = mazzo[indiceCorrente];
     if (fronteTxt) fronteTxt.innerText = cardData.fronte;
-    // NON reinseriamo più la piccola etichetta "Translation" qui (c'è già nel markup)
     if (retroTxt) retroTxt.innerText = cardData.retro;
-    // Mostriamo l'esempio con prefisso "Esempio:"
     if (esempioTxt) esempioTxt.innerHTML = `<strong>Esempio:</strong> ${cardData.esempio}`;
     if (contatore) contatore.innerText = (indiceCorrente + 1) + " / " + mazzo.length;
 }
